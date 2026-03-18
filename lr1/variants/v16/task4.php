@@ -1,8 +1,8 @@
 <?php
 /**
- * Завдання 3: Визначення сезону та днів у місяці (if-else)
+ * Завдання 3: Визначення сезону та позиції місяця (if-else)
  *
- * Місяць 9 → "осінь", 30 днів
+ * Місяць 1 → "зима, середній місяць сезону"
  */
 require_once __DIR__ . '/layout.php';
 
@@ -19,16 +19,22 @@ function determineSeason(int $month): string
     }
 }
 
-function daysInMonth(int $month, int $year = 2025): int
+function monthPositionInSeason(int $month): string
 {
-    return cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    if (in_array($month, [12, 3, 6, 9])) {
+        return "перший місяць сезону";
+    } elseif (in_array($month, [1, 4, 7, 10])) {
+        return "середній місяць сезону";
+    } else {
+        return "останній місяць сезону";
+    }
 }
 
-// Вхідні дані (варіант 30)
-$month = 9;
+// Вхідні дані
+$month = 1;
 
 $season = determineSeason($month);
-$days = daysInMonth($month);
+$position = monthPositionInSeason($month);
 
 $monthNames = [
     1 => "Січень", 2 => "Лютий", 3 => "Березень",
@@ -51,9 +57,9 @@ $content = '<div class="card large">
     <div class="season-month" style="color:' . $style['color'] . '">Місяць ' . $month . '</div>
     <div class="season-month-name">' . $monthNames[$month] . '</div>
     <div class="season-result">' . $season . '</div>
-    <div class="result mt-15">Днів у місяці: <strong>' . $days . '</strong></div>
+    <div class="result mt-15"><strong>' . mb_strtolower($season) . ', ' . $position . '</strong></div>
     <p class="info">determineSeason(' . $month . ') = "' . $season . '"</p>
-    <p class="info">daysInMonth(' . $month . ') = ' . $days . '</p>
+    <p class="info">monthPositionInSeason(' . $month . ') = "' . $position . '"</p>
 </div>';
 
 renderVariantLayout($content, 'Завдання 3', 'task4-body ' . $style['class']);
