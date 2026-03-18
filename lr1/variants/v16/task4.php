@@ -21,9 +21,9 @@ function determineSeason(int $month): string
 
 function monthPositionInSeason(int $month): string
 {
-    if (in_array($month, [12, 3, 6, 9])) {
+    if ($month == 12 || $month == 3 || $month == 6 || $month == 9) {
         return "перший місяць сезону";
-    } elseif (in_array($month, [1, 4, 7, 10])) {
+    } elseif ($month == 1 || $month == 4 || $month == 7 || $month == 10) {
         return "середній місяць сезону";
     } else {
         return "останній місяць сезону";
@@ -57,7 +57,7 @@ $content = '<div class="card large">
     <div class="season-month" style="color:' . $style['color'] . '">Місяць ' . $month . '</div>
     <div class="season-month-name">' . $monthNames[$month] . '</div>
     <div class="season-result">' . $season . '</div>
-    <div class="result mt-15"><strong>' . mb_strtolower($season) . ', ' . $position . '</strong></div>
+    <div class="result mt-15"><strong>' . strtolower($season) . ', ' . $position . '</strong></div>
     <p class="info">determineSeason(' . $month . ') = "' . $season . '"</p>
     <p class="info">monthPositionInSeason(' . $month . ') = "' . $position . '"</p>
 </div>';
