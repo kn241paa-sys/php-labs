@@ -29,6 +29,8 @@ class UploadController extends PageController
                 $error = 'Помилка завантаження файлу (код: ' . $file['error'] . ').';
             } elseif ($file['size'] > $this->maxSize) {
                 $error = 'Максимальний розмір файлу: 5 МБ.';
+            } elseif (!class_exists('finfo')) {
+                $error = 'Розширення fileinfo не встановлено на сервері.';
             } else {
                 $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                 $finfo = new finfo(FILEINFO_MIME_TYPE);

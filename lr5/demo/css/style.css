@@ -658,8 +658,10 @@ h3 {
 }
 
 .form__hint {
+    display: block;
     color: #6b7280;
     font-size: 0.85rem;
+    margin-top: 4px;
 }
 
 /* ===== Responsive ===== */

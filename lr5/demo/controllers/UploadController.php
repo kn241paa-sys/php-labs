@@ -28,6 +28,8 @@ class UploadController extends PageController
 
             if ($file['error'] !== UPLOAD_ERR_OK) {
                 $error = 'Помилка завантаження файлу (код: ' . $file['error'] . ').';
+            } elseif (!class_exists('finfo')) {
+                $error = 'Розширення fileinfo не встановлено на сервері.';
             } else {
                 $finfo = new finfo(FILEINFO_MIME_TYPE);
                 $realType = $finfo->file($file['tmp_name']);
