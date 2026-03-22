@@ -15,7 +15,7 @@ function findAndReplace(string $text, string $find, string $replace): string
 }
 
 // Вхідні дані (варіант 30)
-$text = $_POST['text'] ?? 'Вчитель пояснив учням нову тему з математики і попросив учнів виконати домашнє завдання до понеділка';
+$text = $_POST['text'] ?? 'На вечірній прогулянці ми побачили красиву зірку що яскраво сяяла на небі';
 $find = $_POST['find'] ?? '';
 $replace = $_POST['replace'] ?? '';
 $result = '';
