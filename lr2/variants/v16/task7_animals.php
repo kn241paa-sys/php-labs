@@ -2,7 +2,7 @@
 /**
  * Завдання 7: Генератор імен тварин
  *
- * Варіант 30: склади "ту ге ла мі ро ка ші ну бе зо", 4 імені, 2 складів
+ * Варіант 30: 3 імені, по 3 склади
  */
 require_once __DIR__ . '/layout.php';
 
@@ -40,10 +40,10 @@ function generateMultipleNames(array $syllables, int $namesCount = 4, int $sylla
     return $names;
 }
 
-// Обробка форми (варіант 30)
-$syllablesInput = $_POST['syllables'] ?? 'ту ге ла мі ро ка ші ну бе зо';
-$count = (int)($_POST['count'] ?? 4);
-$syllablesPerName = (int)($_POST['syllables_per_name'] ?? 2);
+// Обробка форми (твій варіант)
+$syllablesInput = $_POST['syllables'] ?? 'пар ло ні гу зе тір ма ков ша бі';
+$count = (int)($_POST['count'] ?? 3); // <-- було 4
+$syllablesPerName = (int)($_POST['syllables_per_name'] ?? 3); // <-- було 2
 $submitted = isset($_POST['syllables']);
 
 if ($count < 1) $count = 1;
