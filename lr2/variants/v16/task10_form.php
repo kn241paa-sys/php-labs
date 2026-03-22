@@ -2,7 +2,7 @@
 /**
  * Завдання 10: Реєстраційна форма
  *
- * Варіант 30: логін "teacher_math", міста з v30.md
+ * Варіант 30: логін "ganna_bil16", міста з v30.md
  * POST, сесія, cookie (мова), завантаження фото
  */
 session_start();
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Для автозаповнення
 $formData = [
-    'login' => $_POST['login'] ?? $sessionData['login'] ?? 'teacher_math',
+    'login' => $_POST['login'] ?? $sessionData['login'] ?? 'ganna_bil16',
     'gender' => $_POST['gender'] ?? $sessionData['gender'] ?? '',
     'city' => $_POST['city'] ?? $sessionData['city'] ?? '',
     'hobbies' => $_POST['hobbies'] ?? $sessionData['hobbies'] ?? [],
