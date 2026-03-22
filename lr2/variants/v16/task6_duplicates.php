@@ -1,51 +1,46 @@
 <?php
 /**
- * Завдання 6: Найчастіший елемент (мода)
+ * Завдання 6: Пошук унікальних елементів
  *
- * Варіант 30 (група C): мода замість дублікатів
- * Масив: [1, 4, 1, 1, 6, 1, 3, 1, 9, 7, 1] → 1 (6 разів)
+ * Варіант 30: елементи, що зустрічаються 1 раз
  */
 require_once __DIR__ . '/layout.php';
 
 /**
- * Знаходить найчастіший елемент (моду) в масиві
- *
- * @return array{value: mixed, count: int}|null
+ * Знаходить унікальні елементи (які зустрічаються 1 раз)
  */
-function findMode(array $arr): ?array
+function findUnique(array $arr): array
 {
     if (empty($arr)) {
-        return null;
+        return [];
     }
 
     $counts = array_count_values($arr);
-    $maxCount = max($counts);
-    $modeValue = array_search($maxCount, $counts);
 
-    return ['value' => $modeValue, 'count' => $maxCount];
+    return array_keys(array_filter($counts, fn($count) => $count === 1));
 }
 
-// Обробка форми (варіант 30)
-$input = $_POST['array'] ?? '1, 4, 1, 1, 6, 1, 3, 1, 9, 7, 1';
+// Обробка форми
+$input = $_POST['array'] ?? '6, 10, 3, 15, 6, 10, 1, 3, 12, 15, 8, 4';
 $submitted = isset($_POST['array']);
 
 $arr = array_map('trim', explode(',', $input));
 $arr = array_filter($arr, fn($v) => $v !== '');
 
-$mode = findMode($arr);
+$unique = findUnique($arr);
 
 ob_start();
 ?>
 <div class="demo-card">
-    <h2>Найчастіший елемент (мода)</h2>
-    <p class="demo-subtitle">Знаходить елемент, що зустрічається найчастіше в масиві</p>
+    <h2>Унікальні елементи</h2>
+    <p class="demo-subtitle">Знаходить елементи, що зустрічаються тільки 1 раз</p>
 
     <form method="post" class="demo-form">
         <div>
             <label for="array">Масив (через кому)</label>
             <input type="text" id="array" name="array" value="<?= htmlspecialchars($input) ?>" placeholder="1, 4, 1, 1, 6">
         </div>
-        <button type="submit" class="btn-submit">Знайти моду</button>
+        <button type="submit" class="btn-submit">Знайти</button>
     </form>
 
     <?php if (!empty($arr)): ?>
@@ -53,15 +48,15 @@ ob_start();
         <h3>Вхідний масив</h3>
         <div class="array-display">
             <?php foreach ($arr as $item): ?>
-            <span class="array-item <?= $mode && trim($item) == $mode['value'] ? 'array-item-unique' : '' ?>"><?= htmlspecialchars($item) ?></span>
+            <span class="array-item <?= in_array($item, $unique) ? 'array-item-unique' : '' ?>"><?= htmlspecialchars($item) ?></span>
             <?php endforeach; ?>
         </div>
     </div>
 
-    <?php if ($mode): ?>
+    <?php if (!empty($unique)): ?>
     <div class="demo-result">
-        <h3>Мода</h3>
-        <div class="demo-result-value"><?= htmlspecialchars($mode['value']) ?> (зустрічається <?= $mode['count'] ?> разів)</div>
+        <h3>Унікальні елементи</h3>
+        <div class="demo-result-value"><?= htmlspecialchars(implode(', ', $unique)) ?></div>
     </div>
 
     <div class="demo-section">
@@ -84,8 +79,8 @@ ob_start();
                     <td><?= htmlspecialchars($value) ?></td>
                     <td><?= $count ?></td>
                     <td>
-                        <?php if ($value == $mode['value']): ?>
-                        <span class="demo-tag demo-tag-success">Мода</span>
+                        <?php if ($count === 1): ?>
+                        <span class="demo-tag demo-tag-success">Унікальний</span>
                         <?php else: ?>
                         <span class="demo-tag demo-tag-primary"><?= $count ?>×</span>
                         <?php endif; ?>
@@ -98,12 +93,12 @@ ob_start();
     <?php else: ?>
     <div class="demo-result demo-result-info">
         <h3>Результат</h3>
-        <div class="demo-result-value">Масив порожній</div>
+        <div class="demo-result-value">Унікальних елементів немає</div>
     </div>
     <?php endif; ?>
 
-    <div class="demo-code">findMode([<?= htmlspecialchars(implode(', ', $arr)) ?>])
-// Результат: <?= $mode ? "мода = {$mode['value']} ({$mode['count']} разів)" : 'null' ?></div>
+    <div class="demo-code">findUnique([<?= htmlspecialchars(implode(', ', $arr)) ?>])
+// Результат: [<?= htmlspecialchars(implode(', ', $unique)) ?>]</div>
     <?php endif; ?>
 </div>
 <?php
