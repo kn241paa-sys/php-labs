@@ -1,9 +1,8 @@
 <?php
 /**
- * Завдання 4: Різниця дат + день тижня
+ * Завдання 4: Різниця дат
  *
- * Варіант 30 (група C, Sub3): дні + день тижня (українською)
- * Дати: 08-08-2024 та 12-04-2026 → 612 днів, четвер — неділя
+ * Варіант 30: дні + (тижні і дні)
  */
 require_once __DIR__ . '/layout.php';
 
@@ -26,34 +25,15 @@ function isValidDate(string $date): bool
     return $d && $d->format('d-m-Y') === $date;
 }
 
-/**
- * Повертає назву дня тижня українською
- */
-function getWeekdayUkrainian(string $date): string
-{
-    $days = [
-        'Monday' => 'понеділок',
-        'Tuesday' => 'вівторок',
-        'Wednesday' => 'середа',
-        'Thursday' => 'четвер',
-        'Friday' => 'п\'ятниця',
-        'Saturday' => 'субота',
-        'Sunday' => 'неділя',
-    ];
-    $d = DateTime::createFromFormat('d-m-Y', $date);
-    if (!$d) {
-        return '';
-    }
-    return $days[$d->format('l')] ?? '';
-}
-
-// Вхідні дані (варіант 30)
-$date1 = $_POST['date1'] ?? '08-08-2024';
-$date2 = $_POST['date2'] ?? '12-04-2026';
+// Вхідні дані (твій варіант)
+$date1 = $_POST['date1'] ?? '07-11-2023';
+$date2 = $_POST['date2'] ?? '20-04-2025';
 $submitted = isset($_POST['date1']);
 
 $error = '';
 $days = null;
+$weeks = null;
+$remainingDays = null;
 
 if ($submitted) {
     if (!isValidDate($date1)) {
@@ -62,14 +42,19 @@ if ($submitted) {
         $error = "Друга дата має невірний формат. Використовуйте ДД-ММ-РРРР";
     } else {
         $days = dateDifference($date1, $date2);
+
+        if ($days !== false) {
+            $weeks = intdiv($days, 7);          // тижні
+            $remainingDays = $days % 7;         // залишок днів
+        }
     }
 }
 
 ob_start();
 ?>
 <div class="demo-card">
-    <h2>Різниця дат + день тижня</h2>
-    <p class="demo-subtitle">Кількість днів між датами + назва дня тижня (українською)</p>
+    <h2>Різниця дат</h2>
+    <p class="demo-subtitle">Кількість днів між датами + тижні і дні</p>
 
     <form method="post" class="demo-form">
         <div class="form-row">
@@ -101,29 +86,25 @@ ob_start();
         <table class="demo-table">
             <tr>
                 <td class="demo-table-label">Дата 1</td>
-                <td>
-                    <span class="demo-tag demo-tag-primary"><?= htmlspecialchars($date1) ?></span>
-                    — <?= htmlspecialchars(getWeekdayUkrainian($date1)) ?>
-                </td>
+                <td><span class="demo-tag demo-tag-primary"><?= htmlspecialchars($date1) ?></span></td>
             </tr>
             <tr>
                 <td class="demo-table-label">Дата 2</td>
-                <td>
-                    <span class="demo-tag demo-tag-primary"><?= htmlspecialchars($date2) ?></span>
-                    — <?= htmlspecialchars(getWeekdayUkrainian($date2)) ?>
-                </td>
+                <td><span class="demo-tag demo-tag-primary"><?= htmlspecialchars($date2) ?></span></td>
             </tr>
             <tr>
                 <td class="demo-table-label">Різниця</td>
-                <td><span class="demo-tag demo-tag-success"><?= $days ?> днів</span></td>
+                <td>
+                    <span class="demo-tag demo-tag-success">
+                        <?= $days ?> днів (<?= $weeks ?> тижнів і <?= $remainingDays ?> днів)
+                    </span>
+                </td>
             </tr>
         </table>
     </div>
 
     <div class="demo-code">dateDifference("<?= htmlspecialchars($date1) ?>", "<?= htmlspecialchars($date2) ?>")
-// Результат: <?= $days ?> днів
-// getWeekdayUkrainian("<?= htmlspecialchars($date1) ?>") = "<?= htmlspecialchars(getWeekdayUkrainian($date1)) ?>"
-// getWeekdayUkrainian("<?= htmlspecialchars($date2) ?>") = "<?= htmlspecialchars(getWeekdayUkrainian($date2)) ?>"</div>
+// Результат: <?= $days ?> днів (<?= $weeks ?> тижнів і <?= $remainingDays ?> днів)</div>
     <?php endif; ?>
 </div>
 <?php
