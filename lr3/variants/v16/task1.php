@@ -2,31 +2,39 @@
 /**
  * Завдання 1: Створення класів та об'єктів
  *
- * Варіант 30: клас Product, створення 3 об'єктів з довільними значеннями
+ * Клас Game із властивостями: title, genre, rating
  */
+
 require_once __DIR__ . '/layout.php';
-require_once __DIR__ . '/Product.php';
 
-// Створюємо 3 об'єкти з довільними значеннями
-$product1 = new Product();
-$product1->name = 'Ноутбук ASUS';
-$product1->price = 32500.00;
-$product1->category = 'Електроніка';
+// Клас прямо тут (щоб нічого не ламалось)
+class Game {
+    public $title;
+    public $genre;
+    public $rating;
+}
 
-$product2 = new Product();
-$product2->name = 'Кросівки Nike';
-$product2->price = 4200.00;
-$product2->category = 'Взуття';
+// Створюємо 3 об'єкти
+$game1 = new Game();
+$game1->title = 'The Witcher 3';
+$game1->genre = 'RPG';
+$game1->rating = 9.5;
 
-$product3 = new Product();
-$product3->name = 'Рюкзак Osprey';
-$product3->price = 6800.00;
-$product3->category = 'Аксесуари';
+$game2 = new Game();
+$game2->title = 'Cyberpunk 2077';
+$game2->genre = 'RPG';
+$game2->rating = 8.6;
 
-$products = [
-    ['obj' => $product1, 'avatar' => 'avatar-indigo', 'initial' => 'Н'],
-    ['obj' => $product2, 'avatar' => 'avatar-green', 'initial' => 'К'],
-    ['obj' => $product3, 'avatar' => 'avatar-amber', 'initial' => 'Р'],
+$game3 = new Game();
+$game3->title = 'S.T.A.L.K.E.R. 2';
+$game3->genre = 'Shooter';
+$game3->rating = 8.2;
+
+// Масив для виводу (як у твоєму шаблоні)
+$games = [
+    ['obj' => $game1, 'avatar' => 'avatar-indigo', 'initial' => 'T'],
+    ['obj' => $game2, 'avatar' => 'avatar-green', 'initial' => 'C'],
+    ['obj' => $game3, 'avatar' => 'avatar-amber', 'initial' => 'S'],
 ];
 
 ob_start();
@@ -34,41 +42,50 @@ ob_start();
 
 <div class="task-header">
     <h1>Створення об'єктів</h1>
-    <p>Клас <code>Product</code> з властивостями: name, price, category</p>
+    <p>Клас <code>Game</code> з властивостями: title, genre, rating</p>
 </div>
-
-<div class="code-block"><span class="code-comment">// Створюємо об'єкт та задаємо властивості</span>
-<span class="code-variable">$product1</span> = <span class="code-keyword">new</span> <span class="code-class">Product</span>();
-<span class="code-variable">$product1</span><span class="code-arrow">-></span><span class="code-method">name</span> = <span class="code-string">'Ноутбук ASUS'</span>;
-<span class="code-variable">$product1</span><span class="code-arrow">-></span><span class="code-method">price</span> = <span class="code-string">32500.00</span>;
-<span class="code-variable">$product1</span><span class="code-arrow">-></span><span class="code-method">category</span> = <span class="code-string">'Електроніка'</span>;</div>
 
 <div class="section-divider">
     <span class="section-divider-text">3 об'єкти</span>
 </div>
 
 <div class="users-grid">
-    <?php foreach ($products as $i => $data): ?>
+    <?php foreach ($games as $i => $data): ?>
     <div class="user-card">
         <div class="user-card-header">
-            <div class="user-card-avatar <?= $data['avatar'] ?>"><?= $data['initial'] ?></div>
+            <div class="user-card-avatar <?= $data['avatar'] ?>">
+                <?= $data['initial'] ?>
+            </div>
             <div>
-                <div class="user-card-name"><?= htmlspecialchars($data['obj']->name) ?></div>
-                <div class="user-card-label">Об'єкт #<?= $i + 1 ?></div>
+                <div class="user-card-name">
+                    <?= htmlspecialchars($data['obj']->title) ?>
+                </div>
+                <div class="user-card-label">
+                    Об'єкт #<?= $i + 1 ?>
+                </div>
             </div>
         </div>
+
         <div class="user-card-body">
             <div class="user-card-field">
-                <span class="user-card-field-label">name</span>
-                <span class="user-card-field-value"><?= htmlspecialchars($data['obj']->name) ?></span>
+                <span class="user-card-field-label">title</span>
+                <span class="user-card-field-value">
+                    <?= htmlspecialchars($data['obj']->title) ?>
+                </span>
             </div>
+
             <div class="user-card-field">
-                <span class="user-card-field-label">price</span>
-                <span class="user-card-field-value"><?= $data['obj']->price ?> грн</span>
+                <span class="user-card-field-label">genre</span>
+                <span class="user-card-field-value">
+                    <?= htmlspecialchars($data['obj']->genre) ?>
+                </span>
             </div>
+
             <div class="user-card-field">
-                <span class="user-card-field-label">category</span>
-                <span class="user-card-field-value"><?= htmlspecialchars($data['obj']->category) ?></span>
+                <span class="user-card-field-label">rating</span>
+                <span class="user-card-field-value">
+                    <?= $data['obj']->rating ?>
+                </span>
             </div>
         </div>
     </div>
