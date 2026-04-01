@@ -7,7 +7,6 @@
 
 require_once __DIR__ . '/layout.php';
 
-// Клас прямо тут (щоб нічого не ламалось)
 class Game {
     public $title;
     public $genre;
@@ -30,7 +29,6 @@ $game3->title = 'S.T.A.L.K.E.R. 2';
 $game3->genre = 'Shooter';
 $game3->rating = 8.2;
 
-// Масив для виводу (як у твоєму шаблоні)
 $games = [
     ['obj' => $game1, 'avatar' => 'avatar-indigo', 'initial' => 'T'],
     ['obj' => $game2, 'avatar' => 'avatar-green', 'initial' => 'C'],

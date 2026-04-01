@@ -7,7 +7,6 @@
 
 require_once __DIR__ . '/layout.php';
 
-// Клас прямо тут
 class Game {
     public $title;
     public $genre;
