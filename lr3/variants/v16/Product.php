@@ -7,6 +7,10 @@
 
 class Product
 {
+    private static int $nextId = 1;
+
+    public int $id;
+    public ?int $parentId = null;
     public string $name;
     public float $price;
     public string $category;
@@ -16,6 +20,7 @@ class Product
      */
     public function __construct(string $name = '', float $price = 0.0, string $category = '')
     {
+        $this->id = self::$nextId++;
         $this->name = $name;
         $this->price = $price;
         $this->category = $category;
@@ -26,16 +31,15 @@ class Product
      */
     public function getInfo(): string
     {
-        return "Товар: {$this->name}, Ціна: {$this->price} грн, Категорія: {$this->category}";
+        return "Гра: {$this->name}, Жанр: {$this->category}, Рейтинг: {$this->price}";
     }
 
     /**
-     * При клонуванні — встановлює значення за замовчанням
+     * При клонуванні — точна копія, лише новий id і parentId
      */
     public function __clone(): void
     {
-        $this->name = 'Новий товар';
-        $this->price = 0.0;
-        $this->category = 'Без категорії';
+        $this->parentId = $this->id; 
+        $this->id = self::$nextId++; 
     }
 }
