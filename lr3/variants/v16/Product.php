@@ -39,7 +39,7 @@ class Product
      */
     public function __clone(): void
     {
-        $this->parentId = $this->id; 
+        $this->parentId = $this->id;
         $this->id = self::$nextId++; 
     }
 }
