@@ -24,7 +24,7 @@ class Application
         $controller = new $controllerName();
 
         if (!method_exists($controller, $actionName)) {
-            $this->show404("Дію '{$route['action']}' не знайдено в контролері '{$route['controller']}'.");
+            $this->show404("Дію '{$route['action']}' не знайдено.");
             return;
         }
 

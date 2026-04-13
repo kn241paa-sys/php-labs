@@ -29,23 +29,8 @@ class Request
         return is_string($value) ? $value : $default;
     }
 
-    public function allGet(): array
-    {
-        return $this->get;
-    }
-
-    public function allPost(): array
-    {
-        return $this->post;
-    }
-
-    public function isPost(): bool
-    {
-        return $this->method === 'POST';
-    }
-
-    public function method(): string
-    {
-        return $this->method;
-    }
+    public function allGet(): array { return $this->get; }
+    public function allPost(): array { return $this->post; }
+    public function isPost(): bool { return $this->method === 'POST'; }
+    public function method(): string { return $this->method; }
 }
