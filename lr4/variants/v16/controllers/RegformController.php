@@ -14,14 +14,17 @@ class RegformController extends PageController
             if (empty($errors)) {
                 $_SESSION['reg_success'] = true;
                 $_SESSION['reg_data'] = [
-                    'login' => trim($old['login'] ?? ''),
+                    'login' => is_string($old['login'] ?? '') ? trim($old['login']) : '',
                 ];
                 $this->redirect('regform/done');
                 return;
             }
         }
 
-        $this->render('regform/form', compact('errors', 'old'), 'Реєстрація');
+        $this->render('regform/form', [
+            'errors' => $errors,
+            'old' => $old,
+        ], 'Реєстрація');
     }
 
     public function action_done(): void
@@ -34,37 +37,43 @@ class RegformController extends PageController
         $data = $_SESSION['reg_data'] ?? [];
         unset($_SESSION['reg_success'], $_SESSION['reg_data']);
 
-        $this->render('regform/done', ['regData' => $data], 'Успішно');
+        $this->render('regform/done', ['regData' => $data], 'Реєстрація успішна');
     }
 
     private function validate(array $data): array
     {
         $errors = [];
 
-        $login = trim($data['login'] ?? '');
-
+        $login = is_string($data['login'] ?? '') ? trim($data['login'] ?? '') : '';
         if ($login === '') {
-            $errors['login'] = "Логін обов'язковий.";
-        } elseif (preg_match('/\s/', $login)) {
-            $errors['login'] = 'Без пробілів.';
-        } elseif (strlen($login) < 5) {
-            $errors['login'] = 'Мінімум 5 символів.';
-        } elseif (preg_match('/\d/', $login)) {
-            $errors['login'] = 'Без цифр.';
+            $errors['login'] = "Логін є обов'язковим.";
+        } else {
+            if (preg_match('/\s/', $login)) {
+                $errors['login'] = 'Логін має бути одним словом без пробілів.';
+            } elseif ((function_exists('mb_strlen') ? mb_strlen($login) : strlen($login)) < 5) {
+                $errors['login'] = 'Логін має містити щонайменше 5 символів.';
+            } elseif (preg_match('/\d/', $login)) {
+                $errors['login'] = 'Логін не повинен містити цифри.';
+            }
         }
 
-        $password = $data['password'] ?? '';
-
+        $password = is_string($data['password'] ?? '') ? ($data['password'] ?? '') : '';
         if ($password === '') {
-            $errors['password'] = "Пароль обов'язковий.";
-        } elseif (strlen($password) < 5) {
-            $errors['password'] = 'Мінімум 5 символів.';
-        } elseif (!preg_match('/\d/', $password)) {
-            $errors['password'] = 'Потрібна цифра.';
+            $errors['password'] = "Пароль є обов'язковим.";
+        } else {
+            $pwdLen = function_exists('mb_strlen') ? mb_strlen($password) : strlen($password);
+            if ($pwdLen < 5) {
+                $errors['password'] = 'Пароль має містити щонайменше 5 символів.';
+            } elseif (!preg_match('/\d/', $password)) {
+                $errors['password'] = 'Пароль має містити щонайменше одну цифру.';
+            }
         }
 
-        if (($data['password_confirm'] ?? '') !== $password) {
-            $errors['password_confirm'] = 'Паролі не співпадають.';
+        $passwordConfirm = is_string($data['password_confirm'] ?? '') ? ($data['password_confirm'] ?? '') : '';
+        if ($passwordConfirm === '') {
+            $errors['password_confirm'] = "Підтвердження паролю є обов'язковим.";
+        } elseif ($password !== $passwordConfirm) {
+            $errors['password_confirm'] = 'Паролі не збігаються.';
         }
 
         return $errors;

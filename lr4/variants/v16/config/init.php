@@ -8,8 +8,15 @@ define('CONTROLLERS_DIR', ROOT_DIR . '/controllers');
 define('VIEWS_DIR', ROOT_DIR . '/views');
 
 spl_autoload_register(function (string $className): void {
-    foreach ([CLASSES_DIR, CONTROLLERS_DIR] as $dir) {
-        $file = $dir . '/' . $className . '.php';
-        if (file_exists($file)) require_once $file;
+    $paths = [
+        CLASSES_DIR . '/' . $className . '.php',
+        CONTROLLERS_DIR . '/' . $className . '.php',
+    ];
+
+    foreach ($paths as $path) {
+        if (file_exists($path)) {
+            require_once $path;
+            return;
+        }
     }
 });

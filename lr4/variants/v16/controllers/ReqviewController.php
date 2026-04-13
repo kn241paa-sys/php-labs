@@ -13,6 +13,6 @@ class ReqviewController extends PageController
             'getParams' => $getParams,
             'postParams' => $postParams,
             'method' => $this->request->method(),
-        ], 'Параметри запиту');
+        ], 'Перегляд параметрів запиту');
     }
 }
