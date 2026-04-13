@@ -1,60 +1,63 @@
 <div class="page-home">
-    <h1>Кулінарний блог</h1>
-    <p class="page-home__subtitle">Ласкаво просимо до нашого кулінарного блогу! Тут ви знайдете рецепти, поради та кулінарне натхнення.</p>
+    <h1>Віртуальна галерея мистецтва</h1>
+
+    <p class="page-home__subtitle">
+        Ласкаво просимо до цифрової галереї сучасного мистецтва, концептів та 3D-візуалізацій.
+    </p>
 
     <div class="card-grid">
+
         <div class="card">
-            <h3 class="card__title">Популярні рецепти</h3>
+            <h3 class="card__title">Популярні роботи</h3>
             <p class="card__text">
-                Борщ, вареники, млинці, сирники — найкращі українські страви
-                з покроковими інструкціями та фото.
+                Добірка найкращих digital-art робіт: неон, cyberpunk, абстракція.
             </p>
         </div>
 
         <div class="card">
-            <h3 class="card__title">Реєстрація</h3>
+            <h3 class="card__title">Реєстрація художника</h3>
             <p class="card__text">
-                Зареєструйтесь, щоб зберігати улюблені рецепти,
-                залишати коментарі та ділитися власними стравами.
+                Створіть профіль, щоб завантажувати власні роботи.
             </p>
-            <a href="index.php?route=regform/form" class="btn btn--small">Зареєструватися</a>
+            <a href="index.php?route=regform/form" class="btn">
+                Зареєструватися
+            </a>
         </div>
 
         <div class="card">
-            <h3 class="card__title">Параметри запиту</h3>
+            <h3 class="card__title">API / Запити</h3>
             <p class="card__text">
-                Технічна сторінка для перегляду GET та POST параметрів запиту.
+                Перегляд GET та POST даних системи.
             </p>
-            <a href="index.php?route=reqview/showrequest" class="btn btn--small">Перейти</a>
+            <a href="index.php?route=reqview/showrequest" class="btn">
+                Перейти
+            </a>
         </div>
 
         <div class="card">
             <h3 class="card__title">Налаштування</h3>
             <p class="card__text">
-                Оберіть колір фону сайту та налаштуйте персональне привітання.
+                Зміна фону та привітання користувача.
             </p>
-            <a href="index.php?route=settings/color" class="btn btn--small">Налаштувати</a>
+            <a href="index.php?route=settings/color" class="btn">
+                Налаштувати
+            </a>
         </div>
+
     </div>
 
+    <!-- ВАЖЛИВИЙ БЛОК НЕ ТРОГАЮ -->
     <div class="info-block">
         <h2>Структура MVC</h2>
+
         <table class="table">
-            <thead>
-                <tr>
-                    <th>Клас</th>
-                    <th>Призначення</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td><code>Application</code></td><td>Завантаження додатку, виклик контролера</td></tr>
-                <tr><td><code>Router</code></td><td>Розбір URL &rarr; контролер + дія</td></tr>
-                <tr><td><code>Request</code></td><td>Обгортка для <code>$_GET</code> / <code>$_POST</code></td></tr>
-                <tr><td><code>Controller</code></td><td>Базовий клас контролера</td></tr>
-                <tr><td><code>PageController</code></td><td>Контролер для сторінок</td></tr>
-                <tr><td><code>View</code></td><td>Базовий клас для відображення</td></tr>
-                <tr><td><code>PageView</code></td><td>Шаблон сторінки з layout</td></tr>
-            </tbody>
+            <tr><th>Клас</th><th>Призначення</th></tr>
+            <tr><td>Application</td><td>Роутинг</td></tr>
+            <tr><td>Router</td><td>URL</td></tr>
+            <tr><td>Request</td><td>GET/POST</td></tr>
+            <tr><td>Controller</td><td>Логіка</td></tr>
+            <tr><td>View</td><td>Відображення</td></tr>
+            <tr><td>PageView</td><td>Layout</td></tr>
         </table>
     </div>
 </div>

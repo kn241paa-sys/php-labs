@@ -4,74 +4,103 @@ $postParams = $postParams ?? [];
 $method = $method ?? 'GET';
 ?>
 
-<h1>Перегляд параметрів запиту</h1>
+<div class="reqview">
 
-<div class="reqview-grid">
-    <div class="reqview-section">
-        <h2>POST-форма</h2>
-        <p>Надішліть POST-запит з довільними даними:</p>
-        <form method="POST" action="index.php?route=reqview/showrequest&source=form" class="form">
-            <div class="form__group">
-                <label for="post_recipe" class="form__label">Назва рецепту</label>
-                <input type="text" id="post_recipe" name="recipe" class="form__input" placeholder="Борщ">
-            </div>
-            <div class="form__group">
-                <label for="post_ingredients" class="form__label">Інгредієнти</label>
-                <textarea id="post_ingredients" name="ingredients" class="form__textarea" rows="3"
-                          placeholder="Буряк, капуста, картопля..."></textarea>
-            </div>
-            <div class="form__group">
-                <label for="post_time" class="form__label">Час приготування (хв)</label>
-                <input type="number" id="post_time" name="cooking_time" class="form__input" placeholder="60">
-            </div>
-            <button type="submit" class="btn">Надіслати POST</button>
-        </form>
+    <h1>Тест API галереї</h1>
+    <p>Перевірка GET/POST запитів у системі віртуальної галереї мистецтва.</p>
 
-        <h3>GET-параметри в URL</h3>
-        <p>Додайте параметри до URL, наприклад:</p>
-        <code class="code-block">index.php?route=reqview/showrequest&recipe=Borshch&servings=4</code>
-    </div>
+    <div class="reqview-grid">
 
-    <div class="reqview-section">
-        <h2>Результат</h2>
-        <p><strong>Метод запиту:</strong> <code><?= htmlspecialchars($method) ?></code></p>
+        <!-- POST -->
+        <div class="reqview-section">
 
-        <h3>GET-параметри</h3>
-        <?php if (empty($getParams)): ?>
-            <p class="text-muted">GET-параметрів немає.</p>
-        <?php else: ?>
-            <table class="table">
-                <thead>
-                    <tr><th>Параметр</th><th>Значення</th></tr>
-                </thead>
-                <tbody>
+            <h2>Додати арт-роботу (POST)</h2>
+
+            <p>Відправ тестові дані про нову роботу художника.</p>
+
+            <form method="POST"
+                  action="index.php?route=reqview/showrequest&source=form"
+                  class="form">
+
+                <div class="form__group">
+                    <label class="form__label" for="post_title">Назва роботи</label>
+                    <input class="form__input" type="text" id="post_title" name="title" placeholder="Cyber City">
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label" for="post_style">Стиль</label>
+                    <input class="form__input" type="text" id="post_style" name="style" placeholder="Cyberpunk / Abstract">
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label" for="post_desc">Опис</label>
+                    <textarea class="form__textarea" id="post_desc" name="description" rows="3"
+                              placeholder="Опис арт-роботи..."></textarea>
+                </div>
+
+                <button class="btn" type="submit">Відправити POST</button>
+
+            </form>
+
+            <h3>Приклад GET запиту</h3>
+            <code>
+                index.php?route=reqview/showrequest&title=NeonWorld&author=Ivan
+            </code>
+
+        </div>
+
+        <!-- RESULT -->
+        <div class="reqview-section">
+
+            <h2>Результат запиту</h2>
+
+            <p><strong>Метод:</strong> <code><?= htmlspecialchars($method) ?></code></p>
+
+            <h3>GET параметри</h3>
+
+            <?php if (empty($getParams)): ?>
+                <p class="text-muted">Немає GET параметрів</p>
+            <?php else: ?>
+                <table class="table">
+                    <tr>
+                        <th>Параметр</th>
+                        <th>Значення</th>
+                    </tr>
+
                     <?php foreach ($getParams as $key => $value): ?>
                         <tr>
                             <td><code><?= htmlspecialchars($key) ?></code></td>
-                            <td><?= htmlspecialchars(is_array($value) ? json_encode($value, JSON_UNESCAPED_UNICODE) : $value) ?></td>
+                            <td><?= htmlspecialchars(is_array($value)
+                                ? json_encode($value, JSON_UNESCAPED_UNICODE)
+                                : $value) ?></td>
                         </tr>
                     <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
+                </table>
+            <?php endif; ?>
 
-        <h3>POST-параметри</h3>
-        <?php if (empty($postParams)): ?>
-            <p class="text-muted">POST-параметрів немає.</p>
-        <?php else: ?>
-            <table class="table">
-                <thead>
-                    <tr><th>Параметр</th><th>Значення</th></tr>
-                </thead>
-                <tbody>
+            <h3>POST параметри</h3>
+
+            <?php if (empty($postParams)): ?>
+                <p class="text-muted">Немає POST параметрів</p>
+            <?php else: ?>
+                <table class="table">
+                    <tr>
+                        <th>Параметр</th>
+                        <th>Значення</th>
+                    </tr>
+
                     <?php foreach ($postParams as $key => $value): ?>
                         <tr>
                             <td><code><?= htmlspecialchars($key) ?></code></td>
-                            <td><?= htmlspecialchars(is_array($value) ? json_encode($value, JSON_UNESCAPED_UNICODE) : $value) ?></td>
+                            <td><?= htmlspecialchars(is_array($value)
+                                ? json_encode($value, JSON_UNESCAPED_UNICODE)
+                                : $value) ?></td>
                         </tr>
                     <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
+                </table>
+            <?php endif; ?>
+
+        </div>
+
     </div>
 </div>

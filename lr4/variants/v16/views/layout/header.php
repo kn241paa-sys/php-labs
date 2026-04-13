@@ -24,31 +24,40 @@ $navItems = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars(($pageTitle ?? '') !== '' ? $pageTitle : 'Кулінарний блог') ?> — Кулінарний блог</title>
+    <title><?= htmlspecialchars($pageTitle ?? 'Галерея') ?></title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background-color: <?= htmlspecialchars($bgColor) ?>">
-    <header class="header">
-        <div class="container">
-            <div class="header__inner">
-                <a href="index.php" class="header__logo">Кулінарний блог</a>
-                <?php if ($greetingText !== ''): ?>
-                    <span class="header__greeting"><?= $greetingText ?></span>
-                <?php endif; ?>
-            </div>
-            <nav class="nav">
-                <ul class="nav__list">
-                    <?php foreach ($navItems as $route => $label): ?>
-                        <li class="nav__item">
-                            <a href="index.php?route=<?= $route ?>"
-                               class="nav__link<?= $currentRoute === $route ? ' nav__link--active' : '' ?>">
-                                <?= htmlspecialchars($label) ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </nav>
+
+<body style="background-color: <?= htmlspecialchars($bgColor) ?>;">
+
+<header class="header">
+    <div class="container">
+
+        <div class="header__inner">
+            <a href="index.php" class="header__logo">Віртуальна галерея</a>
+
+            <?php if ($greetingText !== ''): ?>
+                <span class="header__greeting">
+                    <?= $greetingText ?>
+                </span>
+            <?php endif; ?>
         </div>
-    </header>
-    <main class="main">
-        <div class="container">
+
+        <nav class="nav">
+            <ul class="nav__list">
+                <?php foreach ($navItems as $route => $label): ?>
+                    <li class="nav__item">
+                        <a class="nav__link <?= $currentRoute === $route ? 'nav__link--active' : '' ?>"
+                           href="index.php?route=<?= $route ?>">
+                            <?= htmlspecialchars($label) ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<main class="main">
+    <div class="container">
