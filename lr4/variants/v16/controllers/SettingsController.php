@@ -3,18 +3,13 @@
 class SettingsController extends PageController
 {
     private array $availableColors = [
-        '#FFF8E1' => 'Ваніль',
-        '#E8F5E9' => 'М\'ятний',
-        '#FFCDD2' => 'Полуничний',
-        '#BBDEFB' => 'Чорничний',
-        '#E1BEE7' => 'Лавандовий',
-        '#C8E6C9' => 'Базилік',
-        '#FFAB91' => 'Гарбузовий',
-        '#B2EBF2' => 'Крижаний',
-        '#F0F4C3' => 'Лимонний',
-        '#D7CCC8' => 'Какао',
-        '#CFD8DC' => 'Сталевий',
-        '#FFFFFF' => 'Білий',
+        '#0f172a' => 'Темна ніч',
+        '#1e293b' => 'Графіт',
+        '#f8fafc' => 'Світлий зал',
+        '#e2e8f0' => 'Мармур',
+        '#fef3c7' => 'Золоте світло',
+        '#ede9fe' => 'Лавандовий простір',
+        '#cffafe' => 'Холодний блакитний',
     ];
 
     public function action_color(): void
@@ -23,11 +18,11 @@ class SettingsController extends PageController
         $messageType = 'success';
 
         if ($this->request->isPost()) {
-            $color = $this->request->postString('bg_color', '#FFF8E1');
+            $color = $this->request->postString('bg_color', '#f8fafc');
 
             if (array_key_exists($color, $this->availableColors)) {
                 $_SESSION['bg_color'] = $color;
-                $message = 'Колір фону збережено!';
+                $message = 'Фон галереї змінено!';
             } else {
                 $message = 'Невідомий колір.';
                 $messageType = 'error';
@@ -36,10 +31,10 @@ class SettingsController extends PageController
 
         $this->render('settings/color', [
             'colors' => $this->availableColors,
-            'currentColor' => $_SESSION['bg_color'] ?? '#FFF8E1',
+            'currentColor' => $_SESSION['bg_color'] ?? '#f8fafc',
             'message' => $message,
             'messageType' => $messageType,
-        ], 'Колір фону');
+        ], 'Оформлення галереї');
     }
 
     public function action_greeting(): void
@@ -58,14 +53,8 @@ class SettingsController extends PageController
                 $message = 'Оберіть стать.';
                 $messageType = 'error';
             } else {
-                $cookieOptions = [
-                    'expires' => time() + 30 * 24 * 3600,
-                    'path' => '/',
-                    'httponly' => true,
-                    'samesite' => 'Lax',
-                ];
-                setcookie('greeting_name', $name, $cookieOptions);
-                setcookie('greeting_gender', $gender, $cookieOptions);
+                setcookie('greeting_name', $name, time() + 30 * 24 * 3600, '/');
+                setcookie('greeting_gender', $gender, time() + 30 * 24 * 3600, '/');
 
                 $_COOKIE['greeting_name'] = $name;
                 $_COOKIE['greeting_gender'] = $gender;
@@ -79,6 +68,6 @@ class SettingsController extends PageController
             'messageType' => $messageType,
             'currentName' => $_COOKIE['greeting_name'] ?? '',
             'currentGender' => $_COOKIE['greeting_gender'] ?? '',
-        ], 'Привітання (Cookie)');
+        ], 'Привітання');
     }
 }
