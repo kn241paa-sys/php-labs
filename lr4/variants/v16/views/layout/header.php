@@ -25,13 +25,11 @@ $navItems = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle ?? 'Галерея') ?></title>
-    <!-- Web fonts for elegant typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <?php
-// determine readable text color depending on chosen background
 function hexToRgb(string $hex): array
 {
     $hex = ltrim($hex, '#');
@@ -48,7 +46,6 @@ function hexToRgb(string $hex): array
 function readableTextColor(string $hex): string
 {
     $rgb = hexToRgb($hex);
-    // perceived brightness formula
     $brightness = ($rgb['r'] * 299 + $rgb['g'] * 587 + $rgb['b'] * 114) / 1000;
     return $brightness > 150 ? '#07101a' : '#f8f6f2';
 }

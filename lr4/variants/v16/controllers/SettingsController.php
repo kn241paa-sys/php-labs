@@ -2,13 +2,13 @@
 
 class SettingsController extends PageController
 {
-    // refined dark palette: distinct hues but all low-brightness for good contrast
+
     private array $availableColors = [
-        '#0f1724' => 'Темна ніч',      // deep charcoal-blue (default)
-        '#07101a' => 'Глибоке море',    // very dark blue
-        '#0b1f2d' => 'Морська хвиля',   // teal-blue shade
-        '#1e293b' => 'Графіт',         // slate/graphite
-        '#2b1220' => 'Бордо тінь',     // deep burgundy
+        '#0f1724' => 'Темна ніч',    
+        '#07101a' => 'Глибоке море',  
+        '#0b1f2d' => 'Морська хвиля', 
+        '#1e293b' => 'Графіт',    
+        '#2b1220' => 'Бордо',  
     ];
 
     public function action_color(): void
