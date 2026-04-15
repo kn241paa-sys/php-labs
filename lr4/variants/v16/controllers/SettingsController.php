@@ -2,14 +2,13 @@
 
 class SettingsController extends PageController
 {
+    // refined dark palette: distinct hues but all low-brightness for good contrast
     private array $availableColors = [
-        '#0f172a' => 'Темна ніч',
-        '#1e293b' => 'Графіт',
-        '#f8fafc' => 'Світлий зал',
-        '#e2e8f0' => 'Мармур',
-        '#fef3c7' => 'Золоте світло',
-        '#ede9fe' => 'Лавандовий простір',
-        '#cffafe' => 'Холодний блакитний',
+        '#0f1724' => 'Темна ніч',      // deep charcoal-blue (default)
+        '#07101a' => 'Глибоке море',    // very dark blue
+        '#0b1f2d' => 'Морська хвиля',   // teal-blue shade
+        '#1e293b' => 'Графіт',         // slate/graphite
+        '#2b1220' => 'Бордо тінь',     // deep burgundy
     ];
 
     public function action_color(): void
@@ -18,7 +17,7 @@ class SettingsController extends PageController
         $messageType = 'success';
 
         if ($this->request->isPost()) {
-            $color = $this->request->postString('bg_color', '#f8fafc');
+            $color = $this->request->postString('bg_color', '#0f1724');
 
             if (array_key_exists($color, $this->availableColors)) {
                 $_SESSION['bg_color'] = $color;
@@ -31,7 +30,7 @@ class SettingsController extends PageController
 
         $this->render('settings/color', [
             'colors' => $this->availableColors,
-            'currentColor' => $_SESSION['bg_color'] ?? '#f8fafc',
+            'currentColor' => $_SESSION['bg_color'] ?? '#0f1724',
             'message' => $message,
             'messageType' => $messageType,
         ], 'Оформлення галереї');
