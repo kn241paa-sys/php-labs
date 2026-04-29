@@ -1,6 +1,6 @@
 <?php
 /**
- * Shared layout template for LR2 Variant 16 task pages
+ * Shared layout template for LR3 Variant 16 task pages
  */
 
 require_once dirname(__DIR__, 3) . '/shared/helpers/dev_reload.php';
@@ -11,27 +11,20 @@ function renderVariantLayout(string $content, string $taskName, string $bodyClas
     $currentTask = basename($_SERVER['SCRIPT_NAME']);
 
     $variantTasks = [
-        'task1_replace.php' => 'Завдання 1',
-        'task2_sort.php' => 'Завдання 2',
-        'task3_filename.php' => 'Завдання 3',
-        'task4_dates.php' => 'Завдання 4',
-        'task5_password.php' => 'Завдання 5',
-        'task6_duplicates.php' => 'Завдання 6',
-        'task7_animals.php' => 'Завдання 7',
-        'task8_arrays.php' => 'Завдання 8',
-        'task9_assoc.php' => 'Завдання 9',
-        'task10_form.php' => 'Завдання 10',
-        'task11_calc.php' => 'Завдання 11',
+        'task1.php' => 'Завдання 1',
+        'task2.php' => 'Завдання 2',
+        'task3.php' => 'Завдання 3',
+        'task4.php' => 'Завдання 4',
     ];
 
-    $demoUrl = "/lr2/demo/{$currentTask}?from=v16";
+    $demoUrl = "/lr3/demo/{$currentTask}?from=v16";
     ?>
 <!DOCTYPE html>
 <html lang="uk">
 
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars($taskName) ?> — Варіант 16 ЛР2</title>
+    <title><?= htmlspecialchars($taskName) ?> — Варіант 16 ЛР3</title>
     <link rel="stylesheet" href="<?= webPath(dirname(__DIR__, 3) . '/shared/css/base.css') ?>">
     <link rel="stylesheet" href="<?= webPath(dirname(__DIR__, 2) . '/demo/demo.css') ?>">
 </head>

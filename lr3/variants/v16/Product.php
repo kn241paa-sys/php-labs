@@ -31,16 +31,15 @@ class Product
      */
     public function getInfo(): string
     {
-        return "Товар: {$this->name}, Ціна: {$this->price} грн, Категорія: {$this->category}";
+        return "Гра: {$this->name}, Жанр: {$this->category}, Рейтинг: {$this->price}";
     }
 
     /**
-     * При клонуванні — кастомізація копії
+     * При клонуванні — точна копія, лише новий id і parentId
      */
     public function __clone(): void
     {
         $this->parentId = $this->id;
-        $this->id = self::$nextId++;
-        $this->price = 0.0;
+        $this->id = self::$nextId++; 
     }
 }

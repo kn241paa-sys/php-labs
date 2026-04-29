@@ -8,7 +8,7 @@ require_once __DIR__ . '/layout.php';
 require_once __DIR__ . '/Product.php';
 
 // Оригінальний об'єкт (через конструктор)
-$product3 = new Product('Рюкзак Osprey', 6800.00, 'Аксесуари');
+$product3 = new Product('S.T.A.L.K.E.R. 2', 8.2, 'Shooter');
 
 // Клонуємо — __clone() задає значення за замовчанням
 $product4 = clone $product3;
@@ -18,7 +18,7 @@ ob_start();
 
 <div class="task-header">
     <h1>Клонування</h1>
-    <p><code>clone</code> створює точну копію об'єкта. Метод <code>__clone()</code> дозволяє кастомізувати копію (наприклад, скинути ціну)</p>
+    <p><code>clone</code> створює точну копію об'єкта. Метод <code>__clone()</code> дозволяє кастомізувати копію (наприклад, задати дефолтні значення)</p>
 </div>
 
 <div class="code-block"><span class="code-comment">// Метод __clone() — викликається автоматично при clone</span>
@@ -27,7 +27,9 @@ ob_start();
 {
     <span class="code-variable">$this</span><span class="code-arrow">-></span><span class="code-method">parentId</span> = <span class="code-variable">$this</span><span class="code-arrow">-></span><span class="code-method">id</span>;    <span class="code-comment">// зберігаємо id батька</span>
     <span class="code-variable">$this</span><span class="code-arrow">-></span><span class="code-method">id</span> = <span class="code-variable">self</span>::<span class="code-variable">$nextId</span>++;      <span class="code-comment">// новий id для клону</span>
-    <span class="code-variable">$this</span><span class="code-arrow">-></span><span class="code-method">price</span> = <span class="code-string">0.0</span>;              <span class="code-comment">// скидаємо ціну</span>
+    <span class="code-variable">$this</span><span class="code-arrow">-></span><span class="code-method">name</span> = <span class="code-string">"Нова гра"</span>;   <span class="code-comment">// дефолтна назва</span>
+    <span class="code-variable">$this</span><span class="code-arrow">-></span><span class="code-method">category</span> = <span class="code-string">""</span>;     <span class="code-comment">// дефолтний жанр</span>
+    <span class="code-variable">$this</span><span class="code-arrow">-></span><span class="code-method">price</span> = 0.0;               <span class="code-comment">// дефолтний рейтинг</span>
 }
 
 <span class="code-comment">// Створюємо 4-й об'єкт через clone</span>
@@ -41,7 +43,7 @@ ob_start();
     <div class="users-grid">
         <div class="user-card">
             <div class="user-card-header">
-                <div class="user-card-avatar avatar-amber">Р</div>
+                <div class="user-card-avatar avatar-amber">Г</div>
                 <div>
                     <div class="user-card-name"><?= htmlspecialchars($product3->name) ?></div>
                     <div class="user-card-label">$product3 <span class="user-card-badge badge-constructor">original</span></div>
@@ -57,23 +59,23 @@ ob_start();
                     <span class="user-card-field-value"><?= $product3->parentId ?? 'null' ?></span>
                 </div>
                 <div class="user-card-field">
-                    <span class="user-card-field-label">name</span>
+                    <span class="user-card-field-label">title</span>
                     <span class="user-card-field-value"><?= htmlspecialchars($product3->name) ?></span>
                 </div>
                 <div class="user-card-field">
-                    <span class="user-card-field-label">price</span>
-                    <span class="user-card-field-value"><?= $product3->price ?> грн</span>
+                    <span class="user-card-field-label">genre</span>
+                    <span class="user-card-field-value"><?= htmlspecialchars($product3->category) ?></span>
                 </div>
                 <div class="user-card-field">
-                    <span class="user-card-field-label">category</span>
-                    <span class="user-card-field-value"><?= htmlspecialchars($product3->category) ?></span>
+                    <span class="user-card-field-label">rating</span>
+                    <span class="user-card-field-value"><?= $product3->price ?></span>
                 </div>
             </div>
         </div>
 
         <div class="user-card">
             <div class="user-card-header">
-                <div class="user-card-avatar avatar-rose">Р</div>
+                <div class="user-card-avatar avatar-rose">Г</div>
                 <div>
                     <div class="user-card-name"><?= htmlspecialchars($product4->name) ?></div>
                     <div class="user-card-label">$product4 <span class="user-card-badge badge-clone">clone</span></div>
@@ -89,16 +91,16 @@ ob_start();
                     <span class="user-card-field-value"><?= $product4->parentId ?></span>
                 </div>
                 <div class="user-card-field">
-                    <span class="user-card-field-label">name</span>
+                    <span class="user-card-field-label">title</span>
                     <span class="user-card-field-value"><?= htmlspecialchars($product4->name) ?></span>
                 </div>
                 <div class="user-card-field">
-                    <span class="user-card-field-label">price</span>
-                    <span class="user-card-field-value"><?= $product4->price ?> грн</span>
+                    <span class="user-card-field-label">genre</span>
+                    <span class="user-card-field-value"><?= htmlspecialchars($product4->category) ?></span>
                 </div>
                 <div class="user-card-field">
-                    <span class="user-card-field-label">category</span>
-                    <span class="user-card-field-value"><?= htmlspecialchars($product4->category) ?></span>
+                    <span class="user-card-field-label">rating</span>
+                    <span class="user-card-field-value"><?= $product4->price ?></span>
                 </div>
             </div>
         </div>
