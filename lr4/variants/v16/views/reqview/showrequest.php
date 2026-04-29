@@ -41,12 +41,6 @@ $method = $method ?? 'GET';
                 <button class="btn" type="submit">Відправити POST</button>
 
             </form>
-
-            <h3>Приклад GET запиту</h3>
-            <code>
-                index.php?route=reqview/showrequest&title=NeonWorld&author=Ivan
-            </code>
-
         </div>
 
         <!-- RESULT -->

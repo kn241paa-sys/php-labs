@@ -55,17 +55,4 @@
 
     </div>
     
-    <div class="info-block">
-        <h2>Структура MVC</h2>
-
-        <table class="table">
-            <tr><th>Клас</th><th>Призначення</th></tr>
-            <tr><td>Application</td><td>Роутинг</td></tr>
-            <tr><td>Router</td><td>URL</td></tr>
-            <tr><td>Request</td><td>GET/POST</td></tr>
-            <tr><td>Controller</td><td>Логіка</td></tr>
-            <tr><td>View</td><td>Відображення</td></tr>
-            <tr><td>PageView</td><td>Layout</td></tr>
-        </table>
-    </div>
 </div>
